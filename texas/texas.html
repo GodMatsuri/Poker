@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Texas</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+<div class="game-table">
+    <div class="board">
+        <h2 class ="box-text">Pot</h2>
+        <span class="bet-box" id="player-bet">$</span>
+    </div>
+
+    <div class="board">
+        <h2>Board</h2>
+        <div id="board-cards"></div>
+    </div>
+
+    <div class="players">
+
+    <div class="player">
+
+        <div id="player-cards"></div>
+
+        <div class="player-info">
+
+            <div class="avatar"></div>
+
+            <div class="player-details">
+                <div class="player-name">Player</div>
+                <div class="player-chips">
+                    $<span id="player-chips"></span>
+                </div>
+            </div>
+
+            <div class="blind">
+                BIG BLIND <span>$10</span>
+            </div>
+
+        </div>
+
+    </div>
+
+        <div class="opponent">
+            <h2>Opponent</h2>
+            <div id="opponent-cards"></div>
+        </div>
+
+    </div>
+
+    <p id="game-result"></p>
+    <p id="countdown"></p>
+
+    <div class="betting-controls" id="betting-controls">
+
+        <div class="chip-buttons">
+            <button id="chip-5">5</button>
+            <button id="chip-10">10</button>
+            <button id="chip-25">25</button>
+            <button id="chip-50">50</button>
+            <button id="chip-100">100</button>
+            <button id="all-in">All In</button>
+            <button id="clear-button">Clear</button>
+        </div>
+        <button id="test-button">Test</button>
+        <button id="bet-button">Bet</button>
+
+    </div>
+
+
+
+    <div class="ready-buttons" id="ready-buttons">
+        <button id="ready-button">Ready</button>
+    </div>
+    
+</div>
+    
+<div class="game-buttons" id="game-buttons">
+    <button id="raise-button">Raise</button>
+    <button id="check-button">Check</button>
+    <button id="fold-button">Fold</button>
+</div>
+
+<script src="../js/deck.js"></script>
+<script src="../js/chips.js"></script>
+<script src="texas.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,232 @@
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    min-height: 100%;
+    margin: 0;
+}
+
+body {
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+
+    background: #111;
+    font-family: Arial, sans-serif;
+
+    overflow: hidden;
+}
+
+/* Generic card table */
+
+.game-table {
+    position: relative;
+
+    width: min(1300px, 90vw);
+    height: min(650px, 80vh);
+
+    background: #176b3a;
+
+    border: 30px solid darkslateblue;
+    border-radius: 100px;
+
+    box-shadow:
+        0 25px 50px rgba(0, 0, 0, 0.6),
+        inset 0 0 35px rgba(0, 0, 0, 0.4);
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Inner table border */
+
+.game-table::before {
+    content: "";
+
+    position: absolute;
+
+    inset: 15px;
+
+    border: 3px solid rgba(255, 255, 255, 0.25);
+    border-radius: 100px;
+
+    pointer-events: none;
+}
+
+/* Cards */
+
+.cards {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.card-image {
+    width: 80px;
+    height: 115px;
+
+    object-fit: contain;
+
+    border-radius: 6px;
+
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+.dealer,
+.opponent,
+.player {
+    text-align: center;
+    width: 100%;
+    align-content: center;
+}
+
+.board {
+    text-align: center;
+    width: 100%;
+    align-content: center;
+}
+
+.players {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 150px;
+    position: relative;
+
+}
+
+.player,
+.opponent {
+    border-color: #111;
+}
+
+.box-text {
+    display: flex;
+    height: 30px;
+    justify-content: center;
+    align-items: center;
+    margin: 20px auto;
+
+}
+
+.bet-box {
+    display: flex;
+    background-color:darkslategray;
+    width: 150px;
+    height: 50px;
+    border: 2px solid red;
+    border-radius: 25px;
+    justify-content: center;
+    align-items: center;
+    margin: 10px auto;
+}
+
+#player-bet {
+    color: white;
+}
+
+
+#player-cards,
+#opponent-cards {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+#dealer-cards,
+#opponent-cards,
+#board-cards,
+#player-cards {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+#dealer-value {
+    display: none;
+}
+/* Buttons */
+
+
+#game-buttons {
+    display: none;
+    position: relative;
+    justify-content: center;
+    gap: 15px;
+}
+
+
+#ready-buttons {
+    padding: 12px 25px;
+
+    border: none;
+    border-radius: 8px;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+#betting-controls {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.chip-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.chip-buttons button {
+    background-color: darkslateblue;
+    border: solid #176b3a;
+    border-radius: 20px;
+    width: 70px;
+    color: white;
+}
+
+.game-buttons button:hover,
+.chip-buttons button:hover {
+    background-color: darkslateblue;
+    border: solid white;
+    color: white;
+}
+
+.game-buttons button:active,
+.chip-buttons button:active {
+    background-color: blue;
+    border: solid white;
+    color: white;
+}
+
+.game-buttons button {
+    padding: 12px 25px;
+    width: 150px;
+    background-color: darkslateblue;
+    border: solid #176b3a;
+    border-radius: 20px;
+    font-size: 16px;
+    color: white;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+#countdown,
+#game-result {
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+}
