@@ -59,7 +59,7 @@ function clearBet() {
 
 function displayChips(){
     document.getElementById("player-chips").textContent =
-        chipValue();
+        "$" + chipValue();
 
     document.getElementById("player-bet").textContent =
         "$" + betValue();

@@ -79,12 +79,70 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
 }
 
-.dealer,
-.opponent,
-.player {
+#dealer-cards,
+#opponent-cards,
+#board-cards,
+#player-cards {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.opponent-texas-cards,
+.player-texas-cards {
+    position: absolute;
+
+    top: 0;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    width: 180px;
+    height: 120px;
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 0;
+}
+.opponent-texas-cards .card-image,
+.player-texas-cards .card-image {
+    position: absolute;
+
+    width: 80px;
+    height: 115px;
+}
+
+.opponent-texas-cards .card-image:nth-child(1),
+.player-texas-cards .card-image:nth-child(1) {
+    left: 20px;
+    transform: rotate(-8deg);
+}
+
+.opponent-texas-cards .card-image:nth-child(2),
+.player-texas-cards .card-image:nth-child(2) {
+    left: 75px;
+    transform: rotate(12deg);
+}
+
+.dealer{
+    position: relative;
+    width: 300px;
+    height: 220px;
     text-align: center;
-    width: 100%;
-    align-content: center;
+}
+
+.player {
+    position: relative;
+    width: 300px;
+    height: 220px;
+    text-align: center;
+}
+
+.opponent {
+    text-align: center;
+    width: 300px;
 }
 
 .board {
@@ -107,6 +165,61 @@ body {
     border-color: #111;
 }
 
+.player-info {
+    position: absolute;
+
+    top: 95px;
+    left: 40px;
+
+    width: 220px;
+    height: 90px;
+
+    background: darkslateblue;
+
+    border-radius: 25px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    color: white;
+}
+
+.avatar {
+    position: absolute;
+
+    left: -25px;
+    top: 0;
+
+    width: 70px;
+    height: 70px;
+
+    border-radius: 50%;
+
+    background: #8eb66d;
+
+    border: 2px solid darkslateblue;
+}
+
+.player-details {
+    margin-top: 8px;
+    text-align: center;
+}
+
+.player-name {
+    font-size: 14px;
+    left: -25px;
+    color: #d0d0d0;
+}
+
+.player-chips {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+
+
+/* Buttons */
 .box-text {
     display: flex;
     height: 30px;
@@ -137,16 +250,6 @@ body {
 #opponent-cards {
     display: flex;
     justify-content: center;
-    gap: 10px;
-}
-
-#dealer-cards,
-#opponent-cards,
-#board-cards,
-#player-cards {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     gap: 10px;
 }
 

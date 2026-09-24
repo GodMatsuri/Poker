@@ -14,7 +14,7 @@
 <div class="game-table">
     <div class="board">
         <h2 class ="box-text">Pot</h2>
-        <span class="bet-box" id="player-bet">$</span>
+        <span class="bet-box" id="player-bet"></span>
     </div>
 
     <div class="board">
@@ -22,20 +22,37 @@
         <div id="board-cards"></div>
     </div>
 
-    <div class="players">
+<div class="players">
 
-        <div class="player">
-            <h2>Player</h2>
-            <div id="player-cards"></div>
-            <div class="player-chips">$<span id="player-chips"></span></div>
-        </div>
+    <div class="player">
 
-        <div class="opponent">
-            <h2>Opponent</h2>
-            <div id="opponent-cards"></div>
+        <div class="player-texas-cards" id="player-cards"></div>
+
+        <div class="player-info">
+
+            <div class="avatar"></div>
+
+            <div class="player-details">
+                <div class="player-name">Player</div>
+                <div class="player-chips">
+                    <span id="player-chips"></span>
+                </div>
+            </div>
+
+            <div class="blind">
+                BIG BLIND <span>$10</span>
+            </div>
+
         </div>
 
     </div>
+
+    <div class="opponent">
+        <div class="opponent-texas-cards" id="opponent-cards"></div>
+            <div class="player-name">Opponent</div>
+    </div>
+
+</div>
 
     <p id="game-result"></p>
     <p id="countdown"></p>
