@@ -17,6 +17,8 @@ const rankValues = {
     "A": 14
 };
 
+
+
 function dealStartingHand(player, opponent, deck){
     for (let i = 0; i < 2; i++) {
 
@@ -989,6 +991,14 @@ function testPair() {
     endGame(player, opponent, board);
 }
 
+let raiseAmount = 0;
+
+const raiseValue = document.getElementById("raise-value");
+
+function updateRaiseDisplay() {
+    raiseValue.textContent = "$" + raiseAmount;
+}
+
 document.getElementById("ready-button").addEventListener("click", function() {
 
     playerChips = 1000;
@@ -1000,41 +1010,63 @@ document.getElementById("ready-button").addEventListener("click", function() {
     document.getElementById("ready-buttons").style.display = "none";
 });
 
-document.getElementById("chip-5").addEventListener("click", function() {
-    bet(5);
+document.getElementById("min-button").addEventListener("click", () => {
+    raiseAmount = 20;
+    updateRaiseDisplay();
 });
 
-document.getElementById("chip-10").addEventListener("click", function() {
-    bet(10);
+document.getElementById("quarter-button").addEventListener("click", function() {
+    raiseAmount = playerChips *1/4
+
+    updateRaiseDisplay();
 });
 
-document.getElementById("chip-25").addEventListener("click", function() {
-    bet(25);
+document.getElementById("half-button").addEventListener("click", function() {
+    raiseAmount = playerChips *1/2
+
+    updateRaiseDisplay();
 });
 
-document.getElementById("chip-50").addEventListener("click", function() {
-    bet(50);
+document.getElementById("three-quarter-button").addEventListener("click", function() {
+    raiseAmount = playerChips *3/4
+
+    updateRaiseDisplay();
 });
 
-document.getElementById("chip-100").addEventListener("click", function() {
-    bet(100);
+document.getElementById("all-in-button").addEventListener("click", function() {
+    raiseAmount = playerChips 
+
+    updateRaiseDisplay();
 });
 
-document.getElementById("all-in").addEventListener("click", function() {
-    bet(playerChips);
+document.getElementById("decrease-button").addEventListener("click", () => {
+
+    raiseAmount -= 5;
+
+    if (raiseAmount < 20) {
+        raiseAmount = 20;
+    }
+
+    updateRaiseDisplay();
 });
 
-document.getElementById("clear-button").addEventListener("click", function() {
-    clearBet();
+document.getElementById("increase-button").addEventListener("click", () => {
+
+    raiseAmount += 5;
+
+    if (raiseAmount > playerChips) {
+        raiseAmount = playerChips;
+    }
+
+    updateRaiseDisplay();
+
+
 });
 
-document.getElementById("test-button").addEventListener("click", function() {
-    testPair();
-});
+document.getElementById("bet-confirm-button").addEventListener("click", function() {
+    bet(raiseAmount);
 
-document.getElementById("bet-button").addEventListener("click", function() {
-
-    if (currentBet === 0) {
+    if (raiseAmount === 0) {
         document.getElementById("game-result").textContent =
             "Please place a bet first!";
         return;
@@ -1051,14 +1083,20 @@ document.getElementById("bet-button").addEventListener("click", function() {
 
     document.getElementById("betting-controls").style.display = "none";
     document.getElementById("game-buttons").style.display = "flex";
-
 });
+/*
+document.getElementById("test-button").addEventListener("click", function() {
+    testPair();
+});
+*/
+
 
 document.getElementById("raise-button").addEventListener("click", function() {
     document.getElementById("betting-controls").style.display = "flex";
     document.getElementById("game-buttons").style.display = "none";
+    raiseAmount = 0;
+    updateRaiseDisplay();
     
-    raise(amount)
 });
 
 document.getElementById("check-button").addEventListener("click", function() {
