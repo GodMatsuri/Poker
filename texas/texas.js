@@ -878,7 +878,6 @@ function checkTie(player, opponent, board) {
 
 }
 
-
 function endGame (player, opponent, board){
     let result = checkWinner(player, opponent, board);
 
@@ -991,7 +990,7 @@ function testPair() {
     endGame(player, opponent, board);
 }
 
-let raiseAmount = 0;
+let raiseAmount = 20;
 
 const raiseValue = document.getElementById("raise-value");
 
@@ -1058,6 +1057,10 @@ document.getElementById("increase-button").addEventListener("click", () => {
         raiseAmount = playerChips;
     }
 
+    if(raiseAmount < 20) {
+        raiseAmount = 20;
+    }
+
     updateRaiseDisplay();
 
 
@@ -1092,10 +1095,18 @@ document.getElementById("test-button").addEventListener("click", function() {
 
 
 document.getElementById("raise-button").addEventListener("click", function() {
-    document.getElementById("betting-controls").style.display = "flex";
-    document.getElementById("game-buttons").style.display = "none";
-    raiseAmount = 0;
-    updateRaiseDisplay();
+    
+    if(playerChips < 20){
+        document.getElementById("game-result").textContent =
+            "You do not have sufficient chips to make a raise";
+        return;
+    } else {
+        document.getElementById("betting-controls").style.display = "flex";
+        document.getElementById("game-buttons").style.display = "none";
+        raiseAmount = 20;
+        updateRaiseDisplay();
+    }
+    
     
 });
 

@@ -12,13 +12,12 @@
 <body>
 
 <div class="game-table">
-    <div class="board">
+    <div class="pot">
         <h2 class ="box-text">Pot</h2>
         <span class="bet-box" id="player-bet"></span>
     </div>
 
     <div class="board">
-        <h2>Board</h2>
         <div id="board-cards"></div>
     </div>
 
@@ -37,11 +36,10 @@
                 <div class="player-chips">
                     <span id="player-chips"></span>
                 </div>
+                 <span class="player-chips" id="player-bet"></span>
             </div>
 
-            <div class="blind">
-                BIG BLIND <span>$10</span>
-            </div>
+
 
         </div>
 
@@ -53,7 +51,7 @@
 
         <div class="opponent-info">
 
-            <div class="avatar"></div>
+            <div class="avatarOp"></div>
 
             <div class="opponent-details">
                 <div class="opponent-name">Opponent</div>
@@ -62,9 +60,6 @@
                 </div>
             </div>
 
-            <div class="blind">
-                BIG BLIND <span>$10</span>
-            </div>
 
         </div>
 
@@ -100,7 +95,7 @@
 
             <button id="decrease-button">−</button>
 
-            <span id="raise-value">$0</span>
+            <span id="raise-value">$20</span>
 
             <button id="increase-button">+</button>
 
@@ -112,7 +107,8 @@
 
 </div>
 
-    
+
+
 <div class="game-buttons" id="game-buttons">
     <button id="raise-button">Raise</button>
     <button id="check-button">Check</button>

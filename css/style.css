@@ -78,7 +78,11 @@ body {
 
     border-radius: 6px;
 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    box-shadow:
+        0 5px 10px rgba(0,0,0,0.45),
+        0 1px 3px rgba(255,255,255,0.2);
+
+    animation: dealCard 0.3s ease-out;
 }
 
 #dealer-cards,
@@ -171,6 +175,9 @@ body {
     height: 90px;
 
     background: darkslateblue;
+    
+    box-shadow: 0 5px 15px rgba(0,0,0,0.35);
+    border: 2px solid rgba(255,255,255,0.1);
 
     border-radius: 25px;
 
@@ -181,6 +188,10 @@ body {
     color: white;
 }
 
+.player.active .player-info {
+    border: 3px solid #a5df65;
+    box-shadow: 0 0 15px #a5df65;
+}
 
 .avatar {
     position: absolute;
@@ -194,9 +205,29 @@ body {
     border-radius: 50%;
 
     background: #8eb66d;
-
+    background-image: url("../assets/images/Matsuri.jpg");
+    background-size: 120% 100%;
+    background-position-x: -10px;
     border: 2px solid darkslateblue;
 }
+
+.avatarOp {
+    position: absolute;
+
+    left: -55px;
+    top: 0;
+
+    width: 100px;
+    height: 100px;
+
+    border-radius: 50%;
+
+    background: #8eb66d;
+    background-image: url("../assets/images/chen.webp");
+    background-size: 100% 100%;
+    border: 2px solid darkslateblue;
+}
+
 .opponent-details,
 .player-details {
     margin-top: 8px;
@@ -212,8 +243,9 @@ body {
 
 .opponent-chips,
 .player-chips {
-    font-size: 22px;
+    font-size: 20px;
     font-weight: bold;
+    color: #a5df65;
 }
 
 
@@ -271,6 +303,42 @@ body {
     font-weight: bold;
 
     cursor: pointer;
+}
+
+#ready-buttons button {
+    padding: 12px 25px;
+    width: 150px;
+    background-color:#176b3a ;
+    border: solid darkslateblue;
+    border-radius: 20px;
+    font-size: 16px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#ready-buttons button :hover {
+    padding: 12px 25px;
+    width: 150px;
+    background-color:#176b3a ;
+    border: solid darkslateblue;
+    border-radius: 20px;
+    font-size: 16px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#ready-buttons button:hover {
+    background-color: darkslateblue;
+    border: solid white;
+    color: white;
+}
+
+#ready-buttons button:active {
+    background-color: blue;
+    border: solid white;
+    color: white;
 }
 
 #betting-controls {
@@ -414,4 +482,15 @@ body {
     text-align: center;
     font-size: 20px;
     font-weight: bold;
+}
+
+@keyframes dealCard {
+    from {
+        transform: translateY(-30px) scale(0.8);
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
