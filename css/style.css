@@ -242,7 +242,9 @@ body {
 }
 
 .opponent-chips,
-.player-chips {
+.player-chips,
+.player-bet,
+.current-pot{
     font-size: 20px;
     font-weight: bold;
     color: #a5df65;
@@ -308,8 +310,10 @@ body {
 #ready-buttons button {
     padding: 12px 25px;
     width: 150px;
-    background-color:#176b3a ;
-    border: solid darkslateblue;
+    background: #111b42;
+    color: white;
+
+    border: 2px solid #7184c5;
     border-radius: 20px;
     font-size: 16px;
     color: white;
@@ -317,17 +321,6 @@ body {
     cursor: pointer;
 }
 
-#ready-buttons button :hover {
-    padding: 12px 25px;
-    width: 150px;
-    background-color:#176b3a ;
-    border: solid darkslateblue;
-    border-radius: 20px;
-    font-size: 16px;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-}
 
 #ready-buttons button:hover {
     background-color: darkslateblue;
@@ -383,6 +376,12 @@ body {
     cursor: pointer;
 }
 
+.raise-presets button:hover {
+    background-color: darkslateblue;
+    border: solid white;
+    color: white;
+}
+
 .raise-amount {
     display: flex;
     align-items: center;
@@ -410,6 +409,10 @@ body {
     font-weight: bold;
 
     cursor: pointer;
+}
+
+.raise-amount button:hover {
+    background: darkslateblue;
 }
 
 #raise-value {
@@ -444,6 +447,10 @@ body {
     font-weight: bold;
 
     cursor: pointer;
+}
+
+#bet-confirm-button:hover {
+    border: solid white;
 }
 
 #game-buttons {
