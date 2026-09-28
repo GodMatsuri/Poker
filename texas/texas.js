@@ -17,7 +17,7 @@ const rankValues = {
     "A": 14
 };
 
-
+let flopRevealed = false;
 
 function dealStartingHand(player, opponent, deck){
     for (let i = 0; i < 2; i++) {
@@ -291,12 +291,14 @@ function checkWinner(player, opponent, board) {
 
     if (playerScore > opponentScore) {
         payout(true);
+        payoutOpponent(false);
         return "Player Wins";
     } else if (opponentScore > playerScore) {
         payout(false);
+        payoutOpponent(true);
         return "Opponent Wins";
     } else {
-        currentBet = 0;
+        playerBet = 0;
         return "Tie";
     }
 }
@@ -902,6 +904,7 @@ function displayGame(player, opponent, board) {
     
 }
 
+/*
 function newGame(player, opponent, board, deck) {
 
     while (player.length > 0) {
@@ -922,6 +925,7 @@ function newGame(player, opponent, board, deck) {
     document.getElementById("hit-button").disabled = false;
     document.getElementById("stand-button").disabled = false;
 }
+    */
 
 function startCountdown() {
     let seconds = 5;
@@ -945,24 +949,30 @@ function startCountdown() {
 }
 
 function startNewRound() {
-
-    // Clear hands
     playerHand.length = 0;
     opponentHand.length = 0;
     boardHand.length = 0;
 
-    // Clear display
     document.getElementById("player-cards").innerHTML = "";
     document.getElementById("opponent-cards").innerHTML = "";
     document.getElementById("board-cards").innerHTML = "";
 
-    // Clear result
     document.getElementById("game-result").textContent = "";
 
-    // Show betting controls
-    document.getElementById("betting-controls").style.display = "flex";
+    // Deal new hand
+    startRound(playerHand, opponentHand, boardHand, deck);
 
-    // Hide game controls
+    // Reset flop visibility
+    flopRevealed = false;
+
+    // Display player/opponent cards and board
+    displayGame(playerHand, opponentHand, boardHand);
+
+    // Hide the already-dealt flop
+    document.getElementById("board-cards").style.visibility = "hidden";
+
+    // Allow betting
+    document.getElementById("betting-controls").style.display = "flex";
     document.getElementById("game-buttons").style.display = "none";
 }
 
@@ -1001,9 +1011,19 @@ function updateRaiseDisplay() {
 document.getElementById("ready-button").addEventListener("click", function() {
 
     playerChips = 1000;
-    currentBet = 0;
+    playerBet = 0;
+    
+    startRound(playerHand, opponentHand, boardHand, deck);
+
+    flopRevealed = false;
+
+    displayGame(playerHand, opponentHand, boardHand);
+
+    document.getElementById("board-cards").style.visibility = "hidden";
 
     displayChips();
+    displayChipsOpponent();
+    displayPot()
 
     document.getElementById("betting-controls").style.display = "flex";
     document.getElementById("ready-buttons").style.display = "none";
@@ -1068,6 +1088,7 @@ document.getElementById("increase-button").addEventListener("click", () => {
 
 document.getElementById("bet-confirm-button").addEventListener("click", function() {
     bet(raiseAmount);
+    calculatePot();
 
     if (raiseAmount === 0) {
         document.getElementById("game-result").textContent =
@@ -1075,14 +1096,20 @@ document.getElementById("bet-confirm-button").addEventListener("click", function
         return;
     }
 
-    if(boardHand.length < 1){
-        startRound(playerHand, opponentHand, boardHand, deck);
-        displayGame(playerHand, opponentHand, boardHand);
+if (!flopRevealed) {
 
-    } else if (boardHand.length > 1 && boardHand.length < 5){
-        dealNextCommunityCard(boardHand, deck);
-        displayGame(playerHand, opponentHand, boardHand);
-    }
+    // Reveal the already-dealt flop
+    flopRevealed = true;
+
+    document.getElementById("board-cards").style.visibility = "visible";
+
+} else if (boardHand.length < 5) {
+
+    // Deal the next community card
+    dealNextCommunityCard(boardHand, deck);
+
+    displayGame(playerHand, opponentHand, boardHand);
+}
 
     document.getElementById("betting-controls").style.display = "none";
     document.getElementById("game-buttons").style.display = "flex";
@@ -1126,3 +1153,5 @@ document.getElementById("check-button").addEventListener("click", function() {
 document.getElementById("fold-button").addEventListener("click", function() {
 
 });
+
+

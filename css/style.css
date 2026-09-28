@@ -276,9 +276,14 @@ body {
     margin: 10px auto;
     font-size: 24px;
     font-weight: bold;
+    box-shadow:
+        0 4px 10px rgba(0,0,0,0.4),
+        inset 0 0 8px rgba(255,255,255,0.08);
 }
 
-#player-bet {
+#player-bet,
+#opponent-bet,
+#pot-value {
     color: white;
 }
 

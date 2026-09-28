@@ -1,5 +1,10 @@
 let playerChips = 1000;
-let currentBet = 0;
+let opponentChips = 1000;
+let playerBet = 0;
+let opponentBet = 220;
+let pot = 0;
+
+
 let won;
 let bettingOpen = true;
 
@@ -8,8 +13,20 @@ function chipValue(){
     return playerChips
 }
 
-function betValue(){
-    return currentBet
+function betPlayerValue(){
+    return playerBet
+}
+
+function opponentChipValue(){
+    return opponentChips
+}
+
+function opponentBetValue(){
+    return opponentBet
+}
+
+function potValue() {
+    return pot
 }
 
 function bet(amount){
@@ -17,7 +34,18 @@ function bet(amount){
         return;
     }
     playerChips -= amount;
-    currentBet += amount;
+    playerBet += amount;
+
+    displayChips();
+}
+
+// Texas Poker Bot Bet
+function betOpponent(amount){
+    if(amount > opponentChips){
+        return;
+    }
+    opponentChips -= amount;
+    opponentBet += amount;
 
     displayChips();
 }
@@ -29,19 +57,62 @@ function raise(amount) {
     }
 
     playerChips -= amount;
-    currentBet += amount;
+    playerBet += amount;
 
     displayChips();
 }
 
+// Texas Poker Bot Raise
+function raiseOpponent(amount) {
+
+    if (amount > opponentChips) {
+        return;
+    }
+
+    opponentChips -= amount;
+    opponentBet += amount;
+
+    displayChips();
+}
+
+function calculatePot() {
+    pot = 0;
+    pot = playerBet + opponentBet;
+
+    displayChips();
+    displayChipsOpponent();
+    displayPot();
+}
+
+
+
 function payout(won){
     
     if (won){
-        playerChips += (currentBet * 2)
+        playerChips += pot
     }
-    currentBet = 0;
+    playerBet = 0;
 
     displayChips();
+}
+
+// Texas Poker Bot Payout
+function payoutOpponent(won){
+    
+    if (won){
+        opponentChips += pot
+    }
+    popponentBetlayerBet = 0;
+
+    displayChips();
+}
+
+function clearPot() {
+    pot = 0;
+
+    displayChips();
+    displayChipsOpponent();
+    displayPot();
 }
 
 
@@ -51,8 +122,8 @@ function clearBet() {
         return;
     }
 
-    playerChips += currentBet;
-    currentBet = 0;
+    playerChips += playerBet;
+    playerBet = 0;
 
     displayChips();
 }
@@ -62,5 +133,20 @@ function displayChips(){
         "$" + chipValue();
 
     document.getElementById("player-bet").textContent =
-        "$" + betValue();
+        "$" + betPlayerValue();
+}
+
+// Texas Poker Bot Display Chips
+function displayChipsOpponent(){
+    document.getElementById("opponent-chips").textContent =
+        "$" + opponentChipValue();
+
+    document.getElementById("opponent-bet").textContent =
+        "$" + opponentBetValue();
+}
+
+// Texas Poker Display Pot
+function displayPot() {
+    document.getElementById("pot-value").textContent =
+        "$" + potValue();
 }
