@@ -62,18 +62,6 @@ function raise(amount) {
     displayChips();
 }
 
-// Texas Poker Bot Raise
-function raiseOpponent(amount) {
-
-    if (amount > opponentChips) {
-        return;
-    }
-
-    opponentChips -= amount;
-    opponentBet += amount;
-
-    displayChips();
-}
 
 function calculatePot() {
     pot = 0;

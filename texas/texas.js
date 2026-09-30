@@ -212,7 +212,6 @@ function fullHouse(player, board) {
     return (trips >= 1 && (pairs >= 1 || trips >= 2));
 }
 
-
 function fourOfAKind (player, board){
     const rankCount = countRanks(stud(player, board));
 
@@ -904,29 +903,6 @@ function displayGame(player, opponent, board) {
     
 }
 
-/*
-function newGame(player, opponent, board, deck) {
-
-    while (player.length > 0) {
-        deck.push(player.pop());
-    }
-
-    while (opponent.length > 0) {
-        deck.push(opponent.pop());
-    }
-
-    while (board.length > 0) {
-        deck.push(board.pop());
-    }
-
-    shuffleDeck(deck);
-    startRound(player, opponent, board, deck);
-
-    document.getElementById("hit-button").disabled = false;
-    document.getElementById("stand-button").disabled = false;
-}
-    */
-
 function startCountdown() {
     let seconds = 5;
 
@@ -976,29 +952,45 @@ function startNewRound() {
     document.getElementById("game-buttons").style.display = "none";
 }
 
-function testPair() {
+function botAction() {
 
-    const player = [
-        { rank: "2", suit: "spades" },
-        { rank: "10", suit: "hearts" }
-    ];
+    const action = Math.floor(Math.random() * 3);
 
-    const opponent = [
-        { rank: "2", suit: "clubs" },
-        { rank: "J", suit: "spades" }
-    ];
-
-    const board = [
-        { rank: "9", suit: "spades" },
-        { rank: "4", suit: "diamonds" },
-        { rank: "5", suit: "diamonds" },
-        { rank: "6", suit: "diamonds" },
-        { rank: "7", suit: "diamonds" }
-    ];
-
-    displayGame(player, opponent, board);
-    endGame(player, opponent, board);
+    if (action === 0) {
+        botCheck();
+    } 
+    else if (action === 1) {
+        botCall();
+    } 
+    else {
+        botRaise();
+    }
 }
+
+function botCheck() {
+    console.log("Bot checks");
+}
+
+function botCall() {
+
+    const amount = playerBet - opponentBet;
+
+    if (amount > 0) {
+        betOpponent(amount);
+    }
+
+    console.log("Bot calls");
+}
+
+function botRaise() {
+
+    const raiseAmount = 20;
+
+    betOpponent(raiseAmount);
+
+    console.log("Bot raises $" + raiseAmount);
+}
+
 
 let raiseAmount = 20;
 
@@ -1114,12 +1106,6 @@ if (!flopRevealed) {
     document.getElementById("betting-controls").style.display = "none";
     document.getElementById("game-buttons").style.display = "flex";
 });
-/*
-document.getElementById("test-button").addEventListener("click", function() {
-    testPair();
-});
-*/
-
 
 document.getElementById("raise-button").addEventListener("click", function() {
     
@@ -1151,7 +1137,15 @@ document.getElementById("check-button").addEventListener("click", function() {
 });
 
 document.getElementById("fold-button").addEventListener("click", function() {
+    let result = "Opponent Wins";
 
+    payout(false);
+    payoutOpponent(true);
+
+    document.getElementById("game-result").textContent = result;
+    document.getElementById("game-buttons").style.display = "none";
+
+    startCountdown();
 });
 
 
