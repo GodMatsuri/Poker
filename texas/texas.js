@@ -957,13 +957,15 @@ function botAction() {
     const action = Math.floor(Math.random() * 3);
 
     if (action === 0) {
-        botCheck();
+        botFold();
     } 
     else if (action === 1) {
         botCall();
     } 
-    else {
+    else if (action === 2){
         botRaise();
+    } else {
+        botCheck()
     }
 }
 
@@ -989,6 +991,20 @@ function botRaise() {
     betOpponent(raiseAmount);
 
     console.log("Bot raises $" + raiseAmount);
+}
+
+function botFold() {
+    let result = "Player Wins";
+
+    console.log("Bot folds");
+
+    payout(true);
+    payoutOpponent(false);
+
+    document.getElementById("game-result").textContent = result;
+    document.getElementById("game-buttons").style.display = "none";
+
+    startCountdown();
 }
 
 
