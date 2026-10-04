@@ -954,19 +954,64 @@ function startNewRound() {
 
 function botAction() {
 
-    const action = Math.floor(Math.random() * 3);
+    const handScore = checkHand(opponentHand, boardHand);
+    const amountToCall = playerBet - opponentBet;
 
-    if (action === 0) {
-        botFold();
-    } 
-    else if (action === 1) {
-        botCall();
-    } 
-    else if (action === 2){
+    // Check if the bot's starting two cards are a pair
+    const startingPair =
+        opponentHand.length === 2 &&
+        opponentHand[0].rank === opponentHand[1].rank;
+
+    console.log("Bot hand score:", handScore);
+    console.log("Bot starting pair:", startingPair);
+    console.log("Bot amount to call:", amountToCall);
+
+
+    // --------------------------------
+    // 1. STARTING HAND PAIR
+    // --------------------------------
+
+    if (boardHand.length === 3 && startingPair) {
         botRaise();
-    } else {
-        botCheck()
+        return;
     }
+
+
+    // --------------------------------
+    // 2. THREE OF A KIND OR BETTER
+    // --------------------------------
+
+    if (handScore >= 3) {
+        botRaise();
+        return;
+    }
+
+
+    // --------------------------------
+    // 3. PLAYER HAS RAISED
+    // --------------------------------
+
+    if (amountToCall > 0) {
+
+        // Bot has at least a pair
+        if (handScore >= 1) {
+            botCall();
+        }
+
+        // Bot only has high card
+        else {
+            botFold();
+        }
+
+        return;
+    }
+
+
+    // --------------------------------
+    // 4. PLAYER HAS NOT RAISED
+    // --------------------------------
+
+    botCheck();
 }
 
 function botCheck() {
