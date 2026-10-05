@@ -957,61 +957,56 @@ function botAction() {
     const handScore = checkHand(opponentHand, boardHand);
     const amountToCall = playerBet - opponentBet;
 
-    // Check if the bot's starting two cards are a pair
-    const startingPair =
-        opponentHand.length === 2 &&
-        opponentHand[0].rank === opponentHand[1].rank;
+    const random = Math.random();
 
-    console.log("Bot hand score:", handScore);
-    console.log("Bot starting pair:", startingPair);
-    console.log("Bot amount to call:", amountToCall);
+    // Player hasn't bet
+    if (amountToCall <= 0) {
 
-
-    // --------------------------------
-    // 1. STARTING HAND PAIR
-    // --------------------------------
-
-    if (boardHand.length === 3 && startingPair) {
-        botRaise();
-        return;
-    }
-
-
-    // --------------------------------
-    // 2. THREE OF A KIND OR BETTER
-    // --------------------------------
-
-    if (handScore >= 3) {
-        botRaise();
-        return;
-    }
-
-
-    // --------------------------------
-    // 3. PLAYER HAS RAISED
-    // --------------------------------
-
-    if (amountToCall > 0) {
-
-        // Bot has at least a pair
-        if (handScore >= 1) {
-            botCall();
+        // Strong hand
+        if (handScore >= 4) {
+            botRaise();
         }
 
-        // Bot only has high card
+        // Pair
+        else if (handScore >= 1) {
+
+            if (random < 0.3) {
+                botRaise();
+            } else {
+                botCheck();
+            }
+        }
+
+        // High card
         else {
+            botCheck();
+        }
+
+        return;
+    }
+
+
+    // Player has bet
+
+    // Strong hand
+    if (handScore >= 4) {
+        botRaise();
+    }
+
+    // Pair or better
+    else if (handScore >= 1) {
+
+        if (random < 0.8) {
+            botCall();
+        } else {
             botFold();
         }
-
-        return;
     }
 
-
-    // --------------------------------
-    // 4. PLAYER HAS NOT RAISED
-    // --------------------------------
-
-    botCheck();
+    // High card
+    else {
+        botFold();
+    }
 }
 
 function botCheck() {
@@ -1149,20 +1144,22 @@ document.getElementById("bet-confirm-button").addEventListener("click", function
         return;
     }
 
-if (!flopRevealed) {
+    botAction();
 
-    // Reveal the already-dealt flop
-    flopRevealed = true;
+    if (!flopRevealed) {
 
-    document.getElementById("board-cards").style.visibility = "visible";
+        // Reveal the already-dealt flop
+        flopRevealed = true;
 
-} else if (boardHand.length < 5) {
+        document.getElementById("board-cards").style.visibility = "visible";
 
-    // Deal the next community card
-    dealNextCommunityCard(boardHand, deck);
+    } else if (boardHand.length < 5) {
 
-    displayGame(playerHand, opponentHand, boardHand);
-}
+        // Deal the next community card
+        dealNextCommunityCard(boardHand, deck);
+
+        displayGame(playerHand, opponentHand, boardHand);
+    }
 
     document.getElementById("betting-controls").style.display = "none";
     document.getElementById("game-buttons").style.display = "flex";
@@ -1185,11 +1182,14 @@ document.getElementById("raise-button").addEventListener("click", function() {
 });
 
 document.getElementById("check-button").addEventListener("click", function() {
-
+    
+    botAction();
+    
     if (boardHand.length < 5) {
 
         dealNextCommunityCard(boardHand, deck);
         displayGame(playerHand, opponentHand, boardHand);
+
 
     } else {
         endGame(playerHand, opponentHand, boardHand);

@@ -1,7 +1,7 @@
 let playerChips = 1000;
 let opponentChips = 1000;
 let playerBet = 0;
-let opponentBet = 220;
+let opponentBet = 0;
 let pot = 0;
 
 
