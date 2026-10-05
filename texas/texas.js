@@ -297,7 +297,7 @@ function checkWinner(player, opponent, board) {
         payoutOpponent(true);
         return "Opponent Wins";
     } else {
-        playerBet = 0;
+        splitPot();
         return "Tie";
     }
 }
@@ -962,55 +962,47 @@ function botAction() {
     // Player hasn't bet
     if (amountToCall <= 0) {
 
-        // Strong hand
         if (handScore >= 4) {
-            botRaise();
-        }
+            return botRaise();
 
-        // Pair
-        else if (handScore >= 1) {
+        } else if (handScore >= 1) {
 
             if (random < 0.3) {
-                botRaise();
+                return botRaise();
             } else {
-                botCheck();
+                return botCheck();
             }
-        }
 
-        // High card
-        else {
-            botCheck();
+        } else {
+            return botCheck();
         }
-
-        return;
     }
-
 
     // Player has bet
 
     // Strong hand
     if (handScore >= 4) {
-        botRaise();
+        return botRaise();
     }
 
     // Pair or better
     else if (handScore >= 1) {
 
-        if (random < 0.8) {
-            botCall();
+        if (random < 0.9) {
+            return botCall();
         } else {
-            botFold();
+            return botFold();
         }
+
     }
 
     // High card
-    else {
-        botFold();
-    }
+    else {return botCall();}
 }
 
 function botCheck() {
     console.log("Bot checks");
+    return "Check";
 }
 
 function botCall() {
@@ -1022,15 +1014,20 @@ function botCall() {
     }
 
     console.log("Bot calls");
+
+    return "Call";
 }
 
 function botRaise() {
 
     const raiseAmount = 20;
+    const amountToCall = playerBet - opponentBet;
 
-    betOpponent(raiseAmount);
+    betOpponent(amountToCall + raiseAmount);
 
     console.log("Bot raises $" + raiseAmount);
+
+    return "Raise";
 }
 
 function botFold() {
@@ -1045,6 +1042,8 @@ function botFold() {
     document.getElementById("game-buttons").style.display = "none";
 
     startCountdown();
+    
+    return "Fold";
 }
 
 
@@ -1136,7 +1135,6 @@ document.getElementById("increase-button").addEventListener("click", () => {
 
 document.getElementById("bet-confirm-button").addEventListener("click", function() {
     bet(raiseAmount);
-    calculatePot();
 
     if (raiseAmount === 0) {
         document.getElementById("game-result").textContent =
@@ -1144,8 +1142,19 @@ document.getElementById("bet-confirm-button").addEventListener("click", function
         return;
     }
 
-    botAction();
+    calculatePot();  
+    const botResult = botAction();
+    calculatePot();
 
+    if (botResult === "Fold") {
+        return;
+    }else if (botResult === "Raise") {
+        document.getElementById("betting-controls").style.display = "flex";
+        document.getElementById("game-buttons").style.display = "none";
+        return;
+    }
+
+    
     if (!flopRevealed) {
 
         // Reveal the already-dealt flop
@@ -1182,8 +1191,16 @@ document.getElementById("raise-button").addEventListener("click", function() {
 });
 
 document.getElementById("check-button").addEventListener("click", function() {
-    
-    botAction();
+    const botResult = botAction();
+    calculatePot();
+
+    if (botResult === "Fold") {
+        return;
+    }else if (botResult === "Raise") {
+        document.getElementById("betting-controls").style.display = "flex";
+        document.getElementById("game-buttons").style.display = "none";
+        return;
+    }
     
     if (boardHand.length < 5) {
 

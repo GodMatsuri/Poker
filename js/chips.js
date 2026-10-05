@@ -47,7 +47,7 @@ function betOpponent(amount){
     opponentChips -= amount;
     opponentBet += amount;
 
-    displayChips();
+    displayChipsOpponent();
 }
 
 function raise(amount) {
@@ -73,13 +73,13 @@ function calculatePot() {
 }
 
 
-
 function payout(won){
     
     if (won){
         playerChips += pot
     }
     playerBet = 0;
+    opponentBet = 0;
 
     displayChips();
 }
@@ -90,10 +90,29 @@ function payoutOpponent(won){
     if (won){
         opponentChips += pot
     }
-    popponentBetlayerBet = 0;
+    playerBet = 0;
+    opponentBet = 0;
+
+    displayChipsOpponent();
+}
+
+function splitPot() {
+
+    const halfPot = pot / 2;
+
+    playerChips += halfPot;
+    opponentChips += halfPot;
+
+    playerBet = 0;
+    opponentBet = 0;
+    pot = 0;
 
     displayChips();
+    displayChipsOpponent();
+    displayPot();
 }
+
+
 
 function clearPot() {
     pot = 0;
