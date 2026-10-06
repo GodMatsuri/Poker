@@ -1,8 +1,8 @@
-
 const playerHand = [];
 const dealerHand = [];
 
 let dealerHiddenCard;
+let raiseAmount = 20;
 
 function dealStartingHand(dealerHand, playerHand, deck){
     for (let i = 0; i < 2; i++) {
@@ -57,18 +57,16 @@ function dealerTurn(hand, deck){
     revealDealerCard();
 }
  
-function double(){
-    let doubleBet = currentBet * 2
-    if(doubleBet <= playerChips){
-        
-        playerChips -= currentBet;
-        currentBet *= 2;
-    }else {
-        return;
+function double(){ 
+    let doubleBet = playerBet;
+
+    if(doubleBet > playerChips){ 
+        return false;
     }
 
+    bet(doubleBet);
 
-    displayChips()
+    return true;
 }
 
     
@@ -90,10 +88,14 @@ function checkWinner(dealerHand, playerHand) {
     } else if (totalB > totalA) {
         result.textContent = "Dealer " + totalA + ", Player " + totalB +", Player wins";
         payout(true)
-    } else {
-        result.textContent = "Tie";
-        playerChips += currentBet;
-        currentBet = 0;
+    } else { 
+        result.textContent = "Tie"; 
+
+        playerChips += playerBet;
+        playerBet = 0;
+
+        displayChips();
+        calculatePot();
     }
 
 
@@ -171,11 +173,9 @@ function startCountdown() {
     }, 1000);
 }
 
+
 document.getElementById("ready-button").addEventListener("click", function() {
     playerChips = 1000;
-
-    displayGame();
-    displayDealerHand(dealerHand, "red", "dealer-cards");
 
     document.getElementById("betting-controls").style.display = "flex";
     document.getElementById("ready-buttons").style.display = "none";
@@ -216,36 +216,72 @@ document.getElementById("double-button").addEventListener("click", function() {
 });
 
 
-document.getElementById("chip-5").addEventListener("click", function() {
-    bet(5);
+document.getElementById("min-button").addEventListener("click", () => {
+    raiseAmount = 20;
+    updateRaiseDisplay();
 });
 
-document.getElementById("chip-10").addEventListener("click", function() {
-    bet(10);
+document.getElementById("quarter-button").addEventListener("click", function() {
+    raiseAmount = playerChips *1/4
+
+    updateRaiseDisplay();
 });
 
-document.getElementById("chip-25").addEventListener("click", function() {
-    bet(25);
+document.getElementById("half-button").addEventListener("click", function() {
+    raiseAmount = playerChips *1/2
+
+    updateRaiseDisplay();
 });
 
-document.getElementById("chip-50").addEventListener("click", function() {
-    bet(50);
+document.getElementById("three-quarter-button").addEventListener("click", function() {
+    raiseAmount = playerChips *3/4
+
+    updateRaiseDisplay();
 });
 
-document.getElementById("chip-100").addEventListener("click", function() {
-    bet(100);
+document.getElementById("all-in-button").addEventListener("click", function() {
+    raiseAmount = playerChips 
+
+    updateRaiseDisplay();
 });
 
-document.getElementById("clear-button").addEventListener("click", function() {
-    clearBet();
-});
+document.getElementById("decrease-button").addEventListener("click", () => {
 
-document.getElementById("bet-button").addEventListener("click", function() {
-    if (currentBet === 0) {
-        document.getElementById("game-result").textContent =
-            "Please place a bet first!";
-        return;
+    raiseAmount -= 5;
+
+    if (raiseAmount < 20) {
+        raiseAmount = 20;
     }
+
+    updateRaiseDisplay();
+});
+
+document.getElementById("increase-button").addEventListener("click", () => {
+
+    raiseAmount += 5;
+
+    if (raiseAmount > playerChips) {
+        raiseAmount = playerChips;
+    }
+
+    if(raiseAmount < 20) {
+        raiseAmount = 20;
+    }
+
+    updateRaiseDisplay();
+
+
+});
+
+document.getElementById("bet-confirm-button").addEventListener("click", function() {
+    if (raiseAmount <= 0) { 
+    document.getElementById("game-result").textContent = 
+        "Please place a bet first!"; 
+    return; 
+    }
+    bet(raiseAmount);
+    calculatePot();
+
     newGame(dealerHand, playerHand, deck);
     displayGame();
     displayDealerHand(dealerHand, "red", "dealer-cards");
@@ -253,5 +289,4 @@ document.getElementById("bet-button").addEventListener("click", function() {
     document.getElementById("game-buttons").style.display = "flex";
     document.getElementById("betting-controls").style.display = "none";
 });
-
 

@@ -20,33 +20,33 @@
         <span id="dealer-value"></span>
     </div>
 
-    <div class="player">
-        <h2>Player</h2>
-        <div id="player-cards"></div>
-        <p>Player Value: <span id="player-value"></span></p>
-        <p>Player Chips: <span id="player-chips"></span></p>
-        <p>Current Bet: <span id="player-bet"></span></p>
-    </div>
+        <div class="player">
+        <div class="player-cards" id="player-cards"></div>
+        <div class="player-info">
 
+            <div class="avatar"></div>
+
+            <div class="player-details">
+                <div class="player-name">DONK</div>
+
+                <div class="player-chips">
+                    <span id="player-chips"></span>
+                </div>
+
+                <span class="player-chips" id="player-bet"></span>
+
+                <span id="player-value"></span>
+            </div>
+
+
+
+        </div>
+
+    </div>
     
 
     <p id="game-result"></p>
     <p id="countdown"></p>
-
-    <div class="betting-controls" id="betting-controls">
-
-        <div class="chip-buttons">
-            <button id="chip-5">5</button>
-            <button id="chip-10">10</button>
-            <button id="chip-25">25</button>
-            <button id="chip-50">50</button>
-            <button id="chip-100">100</button>
-            <button id="clear-button">clear</button>
-        </div>
-
-        <button id="bet-button">Bet</button>
-
-    </div>
 
 
     <div class="game-buttons" id="game-buttons">
@@ -60,6 +60,34 @@
 
     <div class="ready-buttons" id="ready-buttons">
         <button id="ready-button">Ready</button>
+
+    </div>
+
+</div>
+
+<div class="betting-controls" id="betting-controls">
+
+    <div class="raise-controls">
+
+        <div class="raise-presets">
+            <button id="min-button">MIN</button>
+            <button id="quarter-button">1/4</button>
+            <button id="half-button">1/2</button>
+            <button id="three-quarter-button">3/4</button>
+            <button id="all-in-button">ALL IN</button>
+        </div>
+
+        <div class="raise-amount">
+
+            <button id="decrease-button">−</button>
+
+            <span id="raise-value">$20</span>
+
+            <button id="increase-button">+</button>
+
+        </div>
+
+        <button id="bet-confirm-button">BET</button>
 
     </div>
 
